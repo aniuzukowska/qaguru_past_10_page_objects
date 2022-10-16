@@ -13,7 +13,7 @@ class RegistrationForm():
         self.set_email(user.email)
         self.set_gender(user.gender)
         self.set_phone_number(user.phone_number)
-        self.set_date_of_birth(user.phone_number)
+        self.set_date_of_birth(user.date_of_birth)
         self.set_subject(user.subject)
         self.set_hobby(user.hobby)
         self.set_picture(user.picture)
@@ -22,7 +22,6 @@ class RegistrationForm():
         self.set_state(user.state)
         self.set_city(user.city)
         self.click_submit()
-        return self
 
     def set_first_name(self, first_name):
         s('#firstName').type(first_name)
@@ -64,9 +63,9 @@ class RegistrationForm():
         if hobby == 'Sports':
             s('.custom-control-label[for="hobbies-checkbox-1"]').click()
         elif hobby == 'Reading':
-           s('.custom-control-label[for="hobbies-checkbox-2"]').click()
+            s('.custom-control-label[for="hobbies-checkbox-2"]').click()
         elif hobby == 'Music':
-           s('.custom-control-label[for="hobbies-checkbox-3"]').click()
+            s('.custom-control-label[for="hobbies-checkbox-3"]').click()
         return self
 
     def set_picture(self, path):
@@ -94,14 +93,18 @@ class RegistrationForm():
         return self
 
     def assert_registered(self, user):
+        day = str(user.date_of_birth[0])
+        if user.date_of_birth[0] < 10:
+            day = '0' + day
+
         data = [
             ('Student Name', f'{user.first_name} {user.last_name}'),
-            ('Student Email', {user.email}),
+            ('Student Email', user.email),
             ('Gender', user.gender),
             ('Mobile', user.phone_number),
-            ('Date of Birth', '07 February,2000'),
-            ('Subjects', user.subjects),
-            ('Hobbies', user.subjects),
+            ('Date of Birth', f'{day} {user.date_of_birth[1]},{user.date_of_birth[2]}'),
+            ('Subjects', user.subject),
+            ('Hobbies', user.hobby),
             ('Picture', user.picture),
             ('Address', user.address),
             ('State and City', f'{user.state} {user.city}')

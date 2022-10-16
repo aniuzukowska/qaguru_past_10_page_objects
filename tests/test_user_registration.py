@@ -12,13 +12,14 @@ def test_submit_student_details(open_and_quit_browser_automation_practice_form):
         date_of_birth=[7, 'February', '2000'],
         subject='Physics',
         hobby='Music',
-        picture='resources/picture.jpg',
+        picture='picture.jpg',
         address='France, Paris',
         state='Haryana',
         city='Karnal'
     )
 
-    app.registration_form.register(maria).assert_registered(maria)
+    app.registration_form.register(maria)
+    app.registration_form.assert_registered(maria)
 
 
 
